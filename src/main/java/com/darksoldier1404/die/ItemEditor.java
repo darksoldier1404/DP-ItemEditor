@@ -6,6 +6,7 @@ import com.darksoldier1404.dppc.utils.PluginUtil;
 
 public class ItemEditor extends DPlugin {
     public static ItemEditor plugin;
+
     public static ItemEditor getInstance() {
         return plugin;
     }
@@ -28,6 +29,6 @@ public class ItemEditor extends DPlugin {
 
     @Override
     public void onDisable() {
-        saveDataContainer();
+        saveAllData();
     }
 }
