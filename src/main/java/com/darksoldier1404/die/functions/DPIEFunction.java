@@ -27,7 +27,7 @@ public class DPIEFunction {
             p.sendMessage(plugin.getPrefix() + plugin.getLang().get("item_name_cannot_have_name"));
             return;
         }
-        String name = ColorUtils.applyColor(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
+        String name = ColorUtils.applyColor(String.join(" ", args));
         meta.setDisplayName(name);
         item.setItemMeta(meta);
         p.sendMessage(plugin.getPrefix() + plugin.getLang().getWithArgs("item_name_set", name));

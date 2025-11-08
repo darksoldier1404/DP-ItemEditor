@@ -1,6 +1,7 @@
 package com.darksoldier1404.die.commands;
 
 import com.darksoldier1404.die.functions.DPIEFunction;
+import com.darksoldier1404.dppc.builder.command.ArgumentType;
 import com.darksoldier1404.dppc.builder.command.CommandBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,14 +15,24 @@ public class DPIECommand {
     private final CommandBuilder builder = new CommandBuilder(plugin);
 
     public DPIECommand() {
-        builder.addSubCommand("name", "dpie.name", "/dpie name <item display name>", true, (p, args) -> {
-            if (args.length >= 2) {
-                DPIEFunction.setItemName(p, args);
-            } else {
-                p.sendMessage(plugin.getPrefix() + plugin.getLang().get("usage_name"));
-            }
-            return true;
-        });
+        builder.beginSubCommand("name", "/dpie name <target> <item display name>")
+                .withPermission("dpie.name")
+                .playerOnly()
+                .withArgument("target", ArgumentType.PLAYER)
+                .withArgument("name", ArgumentType.STRING_ARRAY)
+                .executesPlayer((p, args) -> {
+                    DPIEFunction.setItemName(args.getPlayer("target"), args.getStringArray("name"));
+                    return true;
+                });
+//        builder.addSubCommand("name", "dpie.name", "/dpie name <item display name>", true, (p, args) -> {
+//
+//            if (args.length >= 2) {
+//                DPIEFunction.setItemName(p, args);
+//            } else {
+//                p.sendMessage(plugin.getPrefix() + plugin.getLang().get("usage_name"));
+//            }
+//            return true;
+//        });
         builder.addSubCommand("loreadd", "dpie.lore", "/dpie loreadd <item lore>", true, (p, args) -> {
             if (args.length >= 2) {
                 DPIEFunction.addItemLore(p, args);
